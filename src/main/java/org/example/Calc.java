@@ -20,10 +20,12 @@ public class Calc {
                 if (i.contains("*")) {
                     String[] bits2 = i.split(" \\* ");
                     int rs = Integer.parseInt(bits2[0]) * Integer.parseInt(bits2[1]);
-                    return Integer.parseInt(bits1[0]) + rs;
-
+                    sum += rs;
+                } else {
+                    sum += Integer.parseInt(i);
                 }
             }
+            return sum;
         }
 
         String[] bits = null;
