@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,16 +21,18 @@ class Main {
 class Solution {
     public List solution(int[] emergency) {
 
-        List<Integer> num = Arrays.stream(emergency)
-                .sorted()
-                .boxed()
-                .collect(Collectors.toList());
+        List<Integer> num = new ArrayList<>(emergency.length);
+        int[] arr = new int[emergency.length];
+
 
         int index = 0;
 
-        for (int i = 0; i < num.size(); i++) {
+
+        for (int i = 0; i < emergency.length; i++) {
             if (Collections.max(num).equals(num.get(i))) {
                 num.set(i, ++index);
+                continue;
+
             }
         }
 

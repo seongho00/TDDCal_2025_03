@@ -12,14 +12,23 @@ public class Calc {
         int sum = 0;
 
 
-        for (int i = 0; i < exp.length(); i++) {
-            exp = exp.replace(" - ", " + -");
-        }
+        exp = exp.replace(" - ", " + -");
 
+        if (exp.contains("+") && exp.contains("*")) {
+            String[] bits1 = exp.split(" \\+ ");
+            for (String i : bits1) {
+                if (i.contains("*")) {
+                    String[] bits2 = i.split(" \\* ");
+                    int rs = Integer.parseInt(bits2[0]) * Integer.parseInt(bits2[1]);
+                    return Integer.parseInt(bits1[0]) + rs;
+
+                }
+            }
+        }
 
         String[] bits = null;
 
-        if(exp.contains("*")) {
+        if (exp.contains("*")) {
             sum = 1;
             bits = exp.split(" \\* ");
             for (int i = 0; i < bits.length; i++) {
