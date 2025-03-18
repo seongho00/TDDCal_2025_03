@@ -3,68 +3,49 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class Calc {
+
     public static int run(String exp) {
 
-        List<String> exp_arr = new ArrayList<>();
+        boolean needToPlus = exp.contains("+");
+        boolean needToMinus = exp.contains("-");
 
-        exp_arr = Arrays.asList(exp.split(""));
 
-        String a1 = test.Test(exp_arr);
+        String[] bits = null;
 
-        int exp_count = 0;
-
-        for (String i : exp_arr) {
-            if (i.equals("+") || i.equals("-") || i.equals("*") || i.equals("/")) {
-                exp_count++;
-            }
+        if (needToPlus) {
+            bits = exp.split(" \\+ ");
+        } else if (needToMinus) {
+            bits = exp.split(" - ");
         }
 
 
-        if (exp_arr.contains("-")) {
-            String[] bits = exp.split(" - ");
-            int a = Integer.parseInt(bits[0]);
-            int b = Integer.parseInt(bits[1]);
+        boolean Minus = bits[0].contains("-");
+
+        if (Minus) {
+            String[] bits2 = bits[0].split(" - ");
+            return Integer.parseInt(bits2[0]) - Integer.parseInt(bits2[1]) + Integer.parseInt(bits[1]);
+        }
+
+
+        int a = Integer.parseInt(bits[0]);
+        int b = Integer.parseInt(bits[1]);
+        int c = 0;
+
+        if (bits.length > 2) {
+            c = Integer.parseInt(bits[2]);
+        }
+
+        if (needToPlus) {
+            return a + b + c;
+        } else if (needToMinus) {
             return a - b;
-        } else if (exp_arr.contains("+")) {
-            String[] bits = exp.split(" \\+ ");
-            int a = Integer.parseInt(bits[0]);
-            int b = Integer.parseInt(bits[1]);
-            return a + b;
-        } else if (exp_arr.contains("*")) {
-            String[] bits = exp.split(" \\* ");
-            int a = Integer.parseInt(bits[0]);
-            int b = Integer.parseInt(bits[1]);
-            return a * b;
-        } else if (exp_arr.contains("/")) {
-            String[] bits = exp.split(" / ");
-            int a = Integer.parseInt(bits[0]);
-            int b = Integer.parseInt(bits[1]);
-            return a / b;
         }
 
-
-//        if (get(2).equals("-")){
-//            return a - b;
-//        }
-
-
-        throw new RuntimeException("해석 불가");
+        throw new RuntimeException("해석 불가 : 올바른 계산식이 아닙니다");
     }
-}
 
-class test {
-
-    static String Test(List<String> exp_arr) {
-        int test = 0;
-        try {
-            for (String i : exp_arr) {
-                test = Integer.parseInt(i);
-            }
-        } catch (Exception e) {
-            return "test";
-        }
-        return "";
-    }
 }
