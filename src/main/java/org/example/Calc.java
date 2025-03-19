@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 public class Calc {
 
     public static int run(String exp) {
+        if (!exp.contains(" ")) {
+            return Integer.parseInt(exp);
+        }
+
         int sum = 0;
 
         exp = exp.replace(" - ", " + -");
@@ -19,15 +23,23 @@ public class Calc {
 
 
         if (needTopar) {
-            String pre_cal = exp.substring(exp.indexOf("((") + 2, exp.indexOf("))"));
+            String pre_cal = exp.substring(exp.indexOf("(") + 1, exp.indexOf(")"));
+            while (pre_cal.contains("(")) {
+                pre_cal = pre_cal.substring(pre_cal.indexOf("(") + 1);
+            }
             String pre = "" + run(pre_cal);
-            //수정 부분
-            exp = exp.replace("((" + pre_cal + "))", pre);
+            exp = exp.replace("(" + pre_cal + ")", pre);
+            if (exp.contains("(" + pre + ")")) {
+                exp = exp.replace("(" + pre + ")", pre);
+            }
+
             return run(exp);
         }
 
+
         if (needToCompound) {
             String[] bits = exp.split(" \\+ ");
+
             for (String i : bits) {
                 if (i.contains("*")) {
                     sum += run(i);

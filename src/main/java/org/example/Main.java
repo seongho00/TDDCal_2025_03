@@ -1,6 +1,7 @@
 package org.example;
 
 
+import java.net.Inet4Address;
 import java.util.stream.Collectors;
 
 import java.util.*;
@@ -12,17 +13,16 @@ class Main {
         List<String> fir_input = new ArrayList<>(Arrays.asList(sc.nextLine().split(" ")));
         List<String> sec_input = new ArrayList<>(Arrays.asList(sc.nextLine().split(" ")));
 
-        int X = Integer.parseInt(fir_input.get(1));
-        List<String> rs = new ArrayList<>();
-
+        List<Integer> rs = new ArrayList<>();
 
         for (String i : sec_input) {
-            if (Integer.parseInt(i) < X) {
-                rs.add(i);
-            }
+            rs.add(Integer.parseInt(i));
         }
 
-        System.out.println(String.join(" ", rs));
+        int a = Collections.min(rs);
+        int b = Collections.max(rs);
+
+        System.out.println(a + " " + b);
 
     }
 }

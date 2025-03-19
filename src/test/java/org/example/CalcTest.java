@@ -80,15 +80,39 @@ public class CalcTest {
     }
 
     @Test
-    @DisplayName("20 * ((20 + 20)) == 800")
+    @DisplayName("(10 + 20) == 60")
     public void test13() {
+        assertThat(Calc.run("(10 + 20)")).isEqualTo(30);
+    }
+
+    @Test
+    @DisplayName("20 + ((20 + 20)) == 800")
+    public void test14() {
         assertThat(Calc.run("20 * ((20 + 20))")).isEqualTo(800);
     }
 
     @Test
-    @DisplayName("((20 + 20)) * ((20 + 20)) == 800")
-    public void test14() {
-        assertThat(Calc.run("((20 + 20)) * ((20 + 20))")).isEqualTo(1600);
+    @DisplayName("20 + ((20 - ((20 + 20)))) == 40")
+    public void test15() {
+        assertThat(Calc.run("20 + ((20 - ((20 + 20))))")).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("20 * ((20 - ((20 + 20)))) == 40")
+    public void test16() {
+        assertThat(Calc.run("20 * ((20 - ((20 + 20))))")).isEqualTo(-400);
+    }
+
+    @Test
+    @DisplayName("((10 + 20)) == 30")
+    public void test17() {
+        assertThat(Calc.run("((10 + 20))")).isEqualTo(30);
+    }
+
+    @Test
+    @DisplayName("(10 + 20) * 3 == 900")
+    public void test18() {
+        assertThat(Calc.run("(10 + 20) * 3")).isEqualTo(90);
     }
 
 }
