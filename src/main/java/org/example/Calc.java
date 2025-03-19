@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+
 public class Calc {
 
     public static int run(String exp) {
@@ -23,15 +24,13 @@ public class Calc {
 
 
         if (needTopar) {
-            String pre_cal = exp.substring(exp.indexOf("(") + 1, exp.indexOf(")"));
-            while (pre_cal.contains("(")) {
-                pre_cal = pre_cal.substring(pre_cal.indexOf("(") + 1);
+            String pre_cal = exp.substring(exp.indexOf("((") + 2, exp.indexOf("))"));
+            while (pre_cal.contains("((")) {
+                pre_cal = pre_cal.substring(pre_cal.indexOf("((") + 2);
             }
             String pre = "" + run(pre_cal);
-            exp = exp.replace("(" + pre_cal + ")", pre);
-            if (exp.contains("(" + pre + ")")) {
-                exp = exp.replace("(" + pre + ")", pre);
-            }
+            exp = exp.replace("((" + pre_cal + "))", pre);
+
 
             return run(exp);
         }
