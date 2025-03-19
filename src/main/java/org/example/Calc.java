@@ -11,14 +11,20 @@ public class Calc {
     public static int run(String exp) {
         int sum = 0;
 
-        //수정 부분
-        exp = exp.replace("((", "");
-        exp = exp.replace("))", "");
         exp = exp.replace(" - ", " + -");
         boolean needToPlus = exp.contains("+");
         boolean needToMulti = exp.contains("*");
         boolean needToCompound = needToPlus && needToMulti;
+        boolean needTopar = exp.contains("(") && exp.contains(")");
 
+
+        if (needTopar) {
+            String pre_cal = exp.substring(exp.indexOf("((") + 2, exp.indexOf("))"));
+            String pre = "" + run(pre_cal);
+            //수정 부분
+            exp = exp.replace("((" + pre_cal + "))", pre);
+            return run(exp);
+        }
 
         if (needToCompound) {
             String[] bits = exp.split(" \\+ ");
