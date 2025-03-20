@@ -10,20 +10,22 @@ class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        List<String> fir_input = new ArrayList<>(Arrays.asList(sc.nextLine().split(" ")));
-        List<String> sec_input = new ArrayList<>(Arrays.asList(sc.nextLine().split(" ")));
+        int N = sc.nextInt();
+        sc.nextLine();
+        List<String> num = new ArrayList<>(Arrays.asList(sc.nextLine().split(" ")));
+        List<Integer> int_num = new ArrayList<>();
 
-        List<Integer> rs = new ArrayList<>();
-
-        for (String i : sec_input) {
-            rs.add(Integer.parseInt(i));
+        for (String i : num) {
+            int_num.add(Integer.parseInt(i));
         }
 
-        int a = Collections.min(rs);
-        int b = Collections.max(rs);
-
-        System.out.println(a + " " + b);
-
+        double max = Collections.max(int_num);
+        double rs = 0;
+        for (int i : int_num) {
+            double number = (double) i;
+            rs += number / max * 100;
+        }
+        System.out.println(rs / N);
     }
 }
 
